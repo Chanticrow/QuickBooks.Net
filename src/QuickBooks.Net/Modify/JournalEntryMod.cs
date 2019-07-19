@@ -84,6 +84,13 @@ namespace QuickBooks.Net.Modify
             return this;
         }
 
+        public virtual IJournalEntryMod IncludeRetElement(params string[] retElements)
+        {
+            foreach (var elementName in retElements)
+                AddMessageAllowDuplicates("IncludeRetElement", elementName);
+            return this;
+        }
+
         protected override void SetElementOrder()
         {
             AddElementOrder(

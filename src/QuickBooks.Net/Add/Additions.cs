@@ -46,5 +46,16 @@ namespace QuickBooks.Net.Add
                 return _journalAdd;
             }
         }
+
+        protected IEmployeeAdd _employeeAdd;
+        public IEmployeeAdd Employee
+        {
+            get
+            {
+                if (_employeeAdd == null)
+                    _employeeAdd = new EmployeeAdd(_session);
+                return _employeeAdd;
+            }
+        }
     }
 }

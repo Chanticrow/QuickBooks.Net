@@ -36,6 +36,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=028265cbccdfa80d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -46,9 +64,8 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\..\lib\QBXML\Interop.QBXMLRP2Lib.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\log4net\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net35-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -69,21 +86,28 @@
     <Compile Include="Add\AddBase.cs" />
     <Compile Include="Add\Additions.cs" />
     <Compile Include="Add\CustomerAdd.cs" />
+    <Compile Include="Add\EmployeeAdd.cs" />
     <Compile Include="Add\EntityAddBase.cs" />
-    <Compile Include="Add\IAdditions.cs" />
-    <Compile Include="Add\ICustomerAdd.cs" />
-    <Compile Include="Add\IJournalEntryAdd.cs" />
-    <Compile Include="Add\IVendorAdd.cs" />
+    <Compile Include="Add\Interfaces\IAdditions.cs" />
+    <Compile Include="Add\Interfaces\ICustomerAdd.cs" />
+    <Compile Include="Add\Interfaces\IEmployeeAdd.cs" />
+    <Compile Include="Add\Interfaces\IJournalEntryAdd.cs" />
+    <Compile Include="Add\Interfaces\IVendorAdd.cs" />
     <Compile Include="Add\JournalEntryAdd.cs" />
     <Compile Include="Add\VendorAdd.cs" />
     <Compile Include="ConnectionType.cs" />
     <Compile Include="Domain\Account.cs" />
+    <Compile Include="Domain\AdditionalContactRef.cs" />
+    <Compile Include="Domain\DomainEnums\AdditionalContactRefType.cs" />
     <Compile Include="Domain\Address.cs" />
     <Compile Include="Domain\AddressBlock.cs" />
     <Compile Include="Domain\Bill.cs" />
     <Compile Include="Domain\CCInfo.cs" />
     <Compile Include="Domain\Check.cs" />
     <Compile Include="Domain\CreditCardCredit.cs" />
+    <Compile Include="Domain\DomainEnums\EmployeeType.cs" />
+    <Compile Include="Domain\DomainEnums\Ethnicity.cs" />
+    <Compile Include="Domain\DomainEnums\PartOrFullTime.cs" />
     <Compile Include="Domain\JournalEntry.cs" />
     <Compile Include="Domain\JournalLine.cs" />
     <Compile Include="Domain\ReportColumn.cs" />
@@ -104,9 +128,12 @@
     <Compile Include="FileMode.cs" />
     <Compile Include="IQBSessionFactory.cs" />
     <Compile Include="Modify\CustomerMod.cs" />
-    <Compile Include="Modify\ICustomerMod.cs" />
-    <Compile Include="Modify\IJournalEntryMod.cs" />
-    <Compile Include="Modify\IModifications.cs" />
+    <Compile Include="Modify\EmployeeMod.cs" />
+    <Compile Include="Modify\EntityModBase.cs" />
+    <Compile Include="Modify\Interfaces\ICustomerMod.cs" />
+    <Compile Include="Modify\Interfaces\IEmployeeMod.cs" />
+    <Compile Include="Modify\Interfaces\IJournalEntryMod.cs" />
+    <Compile Include="Modify\Interfaces\IModifications.cs" />
     <Compile Include="Modify\JournalEntryMod.cs" />
     <Compile Include="Modify\Modifications.cs" />
     <Compile Include="Modify\ModifyBase.cs" />
@@ -176,6 +203,9 @@
     <Compile Include="Utilities\ElementPosition.cs" />
     <Compile Include="Utilities\QBXMLBase.cs" />
     <Compile Include="Utilities\XElementBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

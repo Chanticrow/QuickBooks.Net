@@ -35,5 +35,16 @@ namespace QuickBooks.Net.Modify
                 return _customerMod;
             }
         }
+
+        protected IEmployeeMod _employeeMod;
+        public IEmployeeMod Employee
+        {
+            get
+            {
+                if (_employeeMod == null)
+                    _employeeMod = new EmployeeMod(_session);
+                return _employeeMod;
+            }
+        }
     }
 }

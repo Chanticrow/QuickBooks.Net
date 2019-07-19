@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using QuickBooks.Net.Utilities;
 using QuickBooks.Net.Domain;
+using System.Xml.Linq;
 
 namespace QuickBooks.Net.Add
 {
@@ -47,6 +48,7 @@ namespace QuickBooks.Net.Add
 
         public virtual IReturnAdd MiddleName(string middleName)
         {
+            if (middleName.Length > 1) middleName = middleName.Substring(0, 1);
             AddUpdateMessage("MiddleName", middleName);
             return _returnAdd;
         }
@@ -54,6 +56,12 @@ namespace QuickBooks.Net.Add
         public virtual IReturnAdd LastName(string lastName)
         {
             AddUpdateMessage("LastName", lastName);
+            return _returnAdd;
+        }
+
+        public virtual IReturnAdd JobTitle(string jobTitle)
+        {
+            AddUpdateMessage("JobTitle", jobTitle);
             return _returnAdd;
         }
 
@@ -129,19 +137,26 @@ namespace QuickBooks.Net.Add
             return _returnAdd;
         }
 
-        public virtual IReturnAdd IncludeRetElement(params string[] retElements)
-        {
-            foreach (var elementName in retElements)
-                AddMessageAllowDuplicates("IncludeRetElement", elementName);
-            return _returnAdd;
-        }
-
         protected virtual void AddReference(string elementName, Reference reference)
         {
             if (!String.IsNullOrEmpty(reference.ListID))
                 AddUpdateMessage(elementName, "ListID", reference.ListID);
             if (!String.IsNullOrEmpty(reference.FullName))
                 AddUpdateMessage(elementName, "FullName", reference.FullName);
+        }
+
+        protected virtual void AddAdditionalContactRef(string element, AdditionalContactRef additionalContactRef)
+        {
+            var contactRefElementName = "AdditionalContactRef";
+            var lineXML = new XElement(contactRefElementName);
+            var order = _xmlBase.ElementOrder.ChildrenOrder[0].ChildrenOrder
+                .Where(x => x.Name == contactRefElementName)
+                .Single();
+
+            AddUpdateMessage(lineXML, order, "ContactName", additionalContactRef.ContactName);
+            AddUpdateMessage(lineXML, order, "ContactValue", additionalContactRef.ContactValue);
+
+            _xmlBase.InsertXElement(_xmlBase.Xml.Element(element), lineXML, _xmlBase.ElementOrder.ChildrenOrder[0]);
         }
 
         protected void AddAddress(string elementName, Address address)

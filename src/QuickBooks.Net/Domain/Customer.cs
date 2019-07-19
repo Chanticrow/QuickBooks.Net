@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace QuickBooks.Net.Domain
@@ -23,6 +21,8 @@ namespace QuickBooks.Net.Domain
         public virtual AddressBlock ShipAddressBlock { get; set; }
         public virtual string Contact { get; set; }
         public virtual string AltContact { get; set; }
+        [XmlElement("AdditionalContactRef")]
+        public virtual List<AdditionalContactRef> AdditionalContactRef { get; set; }
         public virtual Reference CustomerTypeRef { get; set; }
         public virtual Reference TermsRef { get; set; }
         public virtual Reference SalesRepRef { get; set; }

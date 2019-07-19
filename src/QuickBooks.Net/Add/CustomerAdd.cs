@@ -120,6 +120,15 @@ namespace QuickBooks.Net.Add
             return this;
         }
 
+        public ICustomerAdd AdditionalContactRef(List<AdditionalContactRef> additionalContactRefs)
+        {
+            foreach (var addContact in additionalContactRefs)
+            {
+                AddAdditionalContactRef("CustomerAdd", addContact);
+            }
+            return this;
+        }
+
         public virtual ICustomerAdd FromDomainObject(Customer customer)
         {
             return FromDomainObject(customer, false);
@@ -141,6 +150,8 @@ namespace QuickBooks.Net.Add
                 MiddleName(customer.MiddleName);
             if (!String.IsNullOrEmpty(customer.LastName))
                 LastName(customer.LastName);
+            if (!String.IsNullOrEmpty(customer.JobTitle))
+                JobTitle(customer.JobTitle);
             if (customer.BillAddress != null)
                 BillAddress(customer.BillAddress);
             if (customer.ShipAddress != null)
@@ -157,6 +168,8 @@ namespace QuickBooks.Net.Add
                 Contact(customer.Contact);
             if (!String.IsNullOrEmpty(customer.AltContact))
                 AltContact(customer.AltContact);
+            if (customer.AdditionalContactRef.Count > 0)
+                AdditionalContactRef(customer.AdditionalContactRef);
             if (customer.CustomerTypeRef != null && !neglectReferences)
                 CustomerType(customer.CustomerTypeRef);
             if (customer.TermsRef != null && !neglectReferences)
@@ -208,6 +221,7 @@ namespace QuickBooks.Net.Add
                     "FirstName",
                     "MiddleName",
                     "LastName",
+                    "JobTitle",
                     new ElementPosition("BillAddress",
                         "Addr1",
                         "Addr2",
@@ -236,6 +250,7 @@ namespace QuickBooks.Net.Add
                     "Email",
                     "Contact",
                     "AltContact",
+                    ElementPosition.Ref("AdditionalContactRef"),
                     ElementPosition.Ref("CustomerTypeRef"),
                     ElementPosition.Ref("TermsRef"),
                     ElementPosition.Ref("SalesRepRef"),

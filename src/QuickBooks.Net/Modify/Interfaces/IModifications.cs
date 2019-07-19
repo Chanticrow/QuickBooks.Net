@@ -10,5 +10,6 @@ namespace QuickBooks.Net.Modify
     {
         IJournalEntryMod JournalEntry { get; }
         ICustomerMod Customer { get; }
+        IEmployeeMod Employee { get; }
     }
 }

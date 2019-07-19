@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace QuickBooks.Net.Domain
@@ -24,6 +22,7 @@ namespace QuickBooks.Net.Domain
         public virtual string FirstName { get; set; }
         public virtual string MiddleName { get; set; }
         public virtual string LastName { get; set; }
+        public virtual string JobTitle { get; set; }
         public virtual string Phone { get; set; }
         public virtual string AltPhone { get; set; }
         public virtual string Fax { get; set; }

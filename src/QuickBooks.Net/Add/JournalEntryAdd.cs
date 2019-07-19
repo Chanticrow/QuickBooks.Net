@@ -80,14 +80,6 @@ namespace QuickBooks.Net.Add
             _xmlBase.InsertXElement(_xmlBase.Xml.Element("JournalEntryAdd"), lineXML, _xmlBase.ElementOrder.ChildrenOrder[0]);
         }
 
-        public virtual JournalEntry Add()
-        {
-            var response = _session.ProcessRequest(_xmlBase.Xml).Descendants(_responseName).First();
-            CheckForErrorMessageInResponse(response);
-            _xmlBase.ResetXml();
-            return XMLtoPOCOList(response).First();
-        }
-
         protected override void SetElementOrder()
         {
             AddElementOrder(

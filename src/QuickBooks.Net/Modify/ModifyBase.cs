@@ -30,13 +30,6 @@ namespace QuickBooks.Net.Modify
                 new List<object>().Ad(_modElementName).AdRange(message).ToArray());
         }
 
-        public virtual IReturnMod IncludeRetElement(params string[] retElements)
-        {
-            foreach (var retElement in retElements)
-                AddMessageAllowDuplicates("IncludeRetElement", retElement);
-            return _returnMod;
-        }
-
         public virtual TReturn Modify()
         {
             var response = _session.ProcessRequest(_xmlBase.Xml).Descendants(_responseName).First();
